@@ -10,18 +10,25 @@
 # @param {ListNode} l2
 # @return {ListNode}
 def add_two_numbers(l1, l2)
-  new_node = ListNode.new()
-  quotient = 0
+  return l1 if l2 == nil
+  return l2 if l1 == nil
 
-  while !l1.nil? || !l2.nil? || quotient > 0
-    sum           = (l1.nil? ? 0 : l1.val) + (l2.nil? ? 0 : l2.val) + quotient
-    quotient      = sum / 10
-    remainder     = sum % 10
-    new_node.next = ListNode.new(remainder)
-    new_node      = new_node.next
-    l1            = l1.nil? ? l1 : l1.next
-    l2            = l2.nil? ? l2 : l2.next
+  l3_val  = l1.val + l2.val
+  l3      = ListNode.new(l3_val % 10)
+  add     = l3_val >= 10 ? 1 : 0
+  l1      = l1.next
+  l2      = l2.next
+  tmp     = l3
+
+  while !l1.nil? || !l2.nil? || add > 0
+    l3_val    = (l1.nil? ? 0 : l1.val) + (l2.nil? ? 0 : l2.val) + add
+    add  = l3_val / 10
+    remainder = l3_val % 10
+    tmp.next   = ListNode.new(remainder)
+    tmp        = tmp.next
+    l1        = l1.nil? ? l1 : l1.next
+    l2        = l2.nil? ? l2 : l2.next
   end
 
-  new_node
+  l3
 end
