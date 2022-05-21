@@ -1,29 +1,18 @@
 # @param {String} s
 # @param {Integer} num_rows
 # @return {String}
-# s = "PAYPALISHIRING", num_rows = 4
-def convert(str, num_rows)
-  return str if num_rows = 1
+def convert(s, numRows)
+  return s if numRows == 1
 
-  group = 2 * num_rows - 2
-  arrs = []
+  arrs = Array.new(numRows) { Array.new() }
+  arr_i, isDown = 0, true
 
-  for i in (1..numRows + 1) do 
-    if i == numRows
-      interval = group
-    else
-      interval = 2 * numRows - 2 * i
-    end
-
-    idx = i - 1
-    while idx < str.length
-      arrs << str[idx]
-      idx += interval
-      interval = group - interval
-      
-      interval = group if interval == 0
-    end
+  s.split("").each do |_s|
+    arrs[arr_i] << _s
+    isDown = false if arr_i >= numRows - 1
+    isDown = true  if arr_i <= 0
+    isDown ? arr_i += 1 : arr_i -= 1
   end
 
-  arrs.join("")
+  arrs.flatten.join("")
 end
