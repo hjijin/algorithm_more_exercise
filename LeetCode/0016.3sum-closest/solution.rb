@@ -3,45 +3,36 @@
 # @return {Integer}
 def three_sum_closest(nums, target)
   nums.sort!
-  sum, res = 0, 0
-  for i in 0..(nums.length - 3)
-    next if i > 0 && nums[i] == nums[i - 1]
+  res, nums_size, tar = 0, nums.length, 10**4
 
-    j = i + 1
-    k = nums.length - 1
-    cur = nums[i] + nums[j] + nums[i + 2]
+  for i in (0...nums_size - 2)
+    two_sum = two_sum_closest(nums, i + 1, nums_size - 1, target - nums[i])
 
-    if cur > target
-      new_sum = (cur - target).abs
+    if (nums[i] + two_sum - target).abs < tar
+      res = nums[i] + two_sum
+      tar = (nums[i] + two_sum - target).abs
+    end
+  end
 
-      if new_sum < sum
-        sum = new_sum
-        res = cur
-      end
+  res
+end
 
-      break
+def two_sum_closest(nums, left, right, target)
+  res, tar = 0, 10**4
+
+  while left < right do 
+    sum = nums[left] + nums[right]
+    return sum if sum == target
+    
+    if (sum - target).abs < tar
+      res = sum
+      tar = (sum - target).abs
     end
 
-    while j < k do
-      cur = nums[i] + nums[j] + nums[k]
-      return target if cur == target
-
-      new_sum = (cur - target).abs
-
-      if new_sum < sum
-        sum = new_sum
-        res = cur
-      end
-
-      if cur < target
-        left += 1 if nums[left] == nums[left + 1]
-        left += 1
-        next
-      else
-        right -= 1 if nums[right] == nums[right - 1]
-        right -= 1 
-        next
-      end
+    if sum < target
+      left += 1
+    else
+      right -= 1
     end
   end
 
