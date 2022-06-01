@@ -19,7 +19,7 @@ def letter_combinations(digits)
     strs = combination(strs, alphanumerics[digits[i]])
   end
 
-  strs
+  strs.flatten
 end
 
 def combination(strs, alphanumeric)
@@ -29,5 +29,5 @@ def combination(strs, alphanumeric)
     alphanumeric.split('').map{|s| str + s}
   end
 
-  strs
+  strs.flatten
 end
