@@ -9,8 +9,6 @@
 # @param {ListNode} head
 # @param {Integer} n
 # @return {ListNode}
-
-# head = [1,2,3,4,5], n = 2
 def remove_nth_from_end(head, n)
   list_nodes = ListNode.new(0, head)
 
